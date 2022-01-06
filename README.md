@@ -4,9 +4,9 @@
 # Date: 2022-01-06
 #
 
-Idea: play a simple game -- the player either wins or looses. If the player wins, he earns twice 
-the stake and continues playing with the same stake. If he looses, the player doubles the stake. The
-game ends if the player cannot afford another round.
+Idea: play a simple game -- the player either wins or loses. If the player wins the game, he gets twice 
+the stake money and continues playing with the same stake. If he looses, the player doubles the stake. 
+The game ends if the player cannot afford another round.
 The amount gain/loss may also be variabel.
 
 Questions:
