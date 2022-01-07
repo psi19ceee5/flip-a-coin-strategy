@@ -4,19 +4,19 @@ from library import player as ply
 class Game :
 
     def __init__(self) :
-        self.initial_stake = 1
-        self.max_stake = self.initial_stake
+        random.seed(0)
 
     def initialize(self, uplayer) :
         self.player = uplayer
         self.rounds = 0
         self.round_of_max_capital = 0
-        self.stake = self.initial_stake
-        random.seed(0)
+        self.init_stake = 1
+        self.max_stake = self.init_stake
+        self.stake = self.init_stake
 
     def set_init_stake(self, uinit_stake) :
-        self.initial_stake = uinit_stake
-        self.stake = self.initial_stake
+        self.init_stake = uinit_stake
+        self.stake = self.init_stake
 
     def set_random_seed(self, useed) :
         random.seed(useed)
@@ -31,7 +31,7 @@ class Game :
         success = bool(random.randint(0,1))
         if success :
             is_max_capital = self.player.update_capital(self.player.capital + self.stake)
-            self.stake = self.initial_stake
+            self.stake = self.init_stake
         else :
             is_max_capital = self.player.update_capital(self.player.capital - self.stake)
             self.stake = 2*self.stake
@@ -50,3 +50,6 @@ class Game :
 
     def get_stake(self) :
         return self.stake
+
+    def get_init_stake(self) :
+        return self.init_stake

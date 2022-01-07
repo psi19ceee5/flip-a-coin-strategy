@@ -18,9 +18,12 @@ class Player :
             return True
         else :
             return False
-
+        
     def get_capital(self) :
         return self.capital
+
+    def get_init_capital(self) :
+        return self.init_capital
 
     def get_max_capital(self) :
         return self.max_capital
