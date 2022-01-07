@@ -5,10 +5,12 @@ class Game :
 
     def __init__(self) :
         self.initial_stake = 1
+        self.max_stake = self.initial_stake
 
     def initialize(self, uplayer) :
         self.player = uplayer
-        self.no_rounds = 0
+        self.rounds = 0
+        self.round_of_max_capital = 0
         self.stake = self.initial_stake
         random.seed(0)
 
@@ -28,18 +30,23 @@ class Game :
     def next_round(self) :
         success = bool(random.randint(0,1))
         if success :
-            print("   stake:", self.stake, " ...win")
-            self.player.update_capital(self.player.capital + self.stake)
+            is_max_capital = self.player.update_capital(self.player.capital + self.stake)
             self.stake = self.initial_stake
         else :
-            print("   stake:", self.stake, "...loss")
-            self.player.update_capital(self.player.capital - self.stake)
+            is_max_capital = self.player.update_capital(self.player.capital - self.stake)
             self.stake = 2*self.stake
+            if self.stake > self.max_stake :
+                self.max_stake = self.stake
+        if is_max_capital :
+            self.round_of_max_capital = self.rounds
         
-        self.no_rounds = self.no_rounds + 1
+        self.rounds = self.rounds + 1
 
     def get_no_rounds(self) :
-        return self.no_rounds
+        return self.rounds
+
+    def get_round_of_max_capital(self) :
+        return self.round_of_max_capital
 
     def get_stake(self) :
         return self.stake
