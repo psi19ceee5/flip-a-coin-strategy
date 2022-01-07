@@ -8,12 +8,14 @@ def main() :
     player = ply.Player()
     game = gm.Game()
     game.set_random_seed(0)
-
+    
     rounds = []
     maxcap = []
-    
-    for i in range(1000000) :
-        player.set_init_capital(100)
+
+    ngames = 10000
+    confidence = 0.95
+    for i in range(ngames) :
+        player.set_init_capital(5000)
         game.initialize(player)
         game.set_init_stake(1)
 
@@ -22,9 +24,6 @@ def main() :
 
         rounds.append(np.log10(game.get_no_rounds()))
         maxcap.append(np.log10(player.get_max_capital()))
-        # print("Final stake:", game.get_stake(), " cannot be paid. Game ended")
-        # print("Rounds until loss:", game.get_no_rounds())
-        # print("Maximum Capital:", player.get_max_capital(), "in round", game.get_round_of_max_capital())
 
     plt.hist(rounds,bins=100,histtype='step')
     plt.yscale('log')
@@ -41,6 +40,11 @@ def main() :
     plt.xlabel('log10(max. capital)')
     plt.ylabel('Entries')
     plt.savefig("maxcap.pdf")
+
+    maxcap.sort()
+    quantile = 10**maxcap[round((1 - confidence)*ngames)]
+    print("Init capital:", player.get_init_capital(), "-> max. capital is increased to", 100*quantile/player.get_init_capital(), "% in", round(100*confidence), "% of all games")
+    
 
 if __name__ == "__main__" :
     main()
