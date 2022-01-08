@@ -13,9 +13,9 @@ def main() :
     maxcap = []
 
     ngames = 10000
-    confidence = 0.95
+    confidence = 0.68
     for i in range(ngames) :
-        player.set_init_capital(5000)
+        player.set_init_capital(50000)
         game.initialize(player)
         game.set_init_stake(1)
 
@@ -30,7 +30,7 @@ def main() :
     plt.title("start capital: "+str(player.get_init_capital())+", stake: "+str(game.get_init_stake()))
     plt.xlabel('log10(rounds)')
     plt.ylabel('Entries')
-    plt.savefig("rounds.pdf")
+    plt.savefig("plots/rounds_games"+str(ngames)+"_capital"+str(player.get_init_capital())+".pdf")
 
     plt.clf()
     
@@ -39,7 +39,7 @@ def main() :
     plt.title("start capital: "+str(player.get_init_capital())+", stake: "+str(game.get_init_stake()))
     plt.xlabel('log10(max. capital)')
     plt.ylabel('Entries')
-    plt.savefig("maxcap.pdf")
+    plt.savefig("plots/maxcap_games"+str(ngames)+"_capital"+str(player.get_init_capital())+".pdf")
 
     maxcap.sort()
     quantile = 10**maxcap[round((1 - confidence)*ngames)]
