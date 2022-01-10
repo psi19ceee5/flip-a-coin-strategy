@@ -1,5 +1,6 @@
 from library import player as ply
 from library import game as gm
+import matplotlib
 from matplotlib import pyplot as plt
 import numpy as np
 
@@ -15,7 +16,7 @@ def main() :
     ngames = 10000
     confidence = 0.68
     for i in range(ngames) :
-        player.set_init_capital(50000)
+        player.set_init_capital(50)
         game.initialize(player)
         game.set_init_stake(1)
 
@@ -25,6 +26,7 @@ def main() :
         rounds.append(np.log10(game.get_no_rounds()))
         maxcap.append(np.log10(player.get_max_capital()))
 
+    matplotlib.use('Agg') # backend without display to run on headless server
     plt.hist(rounds,bins=100,histtype='step')
     plt.yscale('log')
     plt.title("start capital: "+str(player.get_init_capital())+", stake: "+str(game.get_init_stake()))
