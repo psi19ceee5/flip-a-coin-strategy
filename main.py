@@ -7,7 +7,12 @@ import numpy as np
 def main() :
 
     player = ply.Player()
+    player.set_init_capital(100)
     game = gm.Game()
+#    game.set_strategy_success("initial stake", 1)
+    game.set_strategy_success("rise relative to capital", 0.001)
+    game.set_strategy_loss("double stake")
+    game.initialize(player)
     game.set_random_seed(0)
     
     rounds = []
@@ -16,9 +21,8 @@ def main() :
     ngames = 10000
     confidence = 0.68
     for i in range(ngames) :
-        player.set_init_capital(50)
+        player.reset()
         game.initialize(player)
-        game.set_init_stake(1)
 
         while game.is_on() :
             game.next_round()

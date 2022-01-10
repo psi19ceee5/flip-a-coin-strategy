@@ -27,3 +27,7 @@ class Player :
 
     def get_max_capital(self) :
         return self.max_capital
+
+    def reset(self) :
+        self.capital = self.init_capital
+        self.max_capital = self.init_capital
